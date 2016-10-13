@@ -21,6 +21,28 @@ function getItemsToDelete(ListName) {
     });    
 }
 
+function deleteItem(item) {
+    
+    var requestUrl = item.__metadata.uri;
+
+    return $.ajax({
+        url: requestUrl,
+        type: "POST",
+        headers: {
+            "accept": "application/json;odata=verbose",
+            "X-RequestDigest": $("#__REQUESTDIGEST").val(),
+            "IF-MATCH": item.__metadata.etag,
+            "X-HTTP-Method": "DELETE"
+        },
+        success: function() {
+            console.log("Item with ID " + item.__metadata.id + " successfully deleted!");
+        },
+        error: function(error) {
+            
+        }
+    });    
+}
+
 
 
 //Process the Request getItemsToDelete
